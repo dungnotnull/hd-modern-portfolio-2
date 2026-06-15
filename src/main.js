@@ -105,7 +105,7 @@ const sizes = {
 };
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color("#D9CAD1");
+scene.background = new THREE.Color("#0a0a0a");
 
 const camera = new THREE.PerspectiveCamera(
   35,
@@ -314,9 +314,9 @@ const loadingScreenButton = document.querySelector(".loading-screen-button");
 const noSoundButton = document.querySelector(".no-sound-button");
 
 manager.onLoad = function () {
-  loadingScreenButton.style.border = "8px solid #2a0f4e";
-  loadingScreenButton.style.background = "#401d49";
-  loadingScreenButton.style.color = "#e6dede";
+  loadingScreenButton.style.border = "8px solid #8b5cf6";
+  loadingScreenButton.style.background = "#1a1a1a";
+  loadingScreenButton.style.color = "#ffffff";
   loadingScreenButton.style.boxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
   loadingScreenButton.textContent = "Enter!";
   loadingScreenButton.style.cursor = "pointer";
@@ -331,12 +331,12 @@ manager.onLoad = function () {
 
     noSoundButton.textContent = "";
     loadingScreenButton.style.cursor = "default";
-    loadingScreenButton.style.border = "8px solid #6e5e9c";
-    loadingScreenButton.style.background = "#ead7ef";
-    loadingScreenButton.style.color = "#6e5e9c";
+    loadingScreenButton.style.border = "8px solid #a78bfa";
+    loadingScreenButton.style.background = "#2a2a2a";
+    loadingScreenButton.style.color = "#a78bfa";
     loadingScreenButton.style.boxShadow = "none";
     loadingScreenButton.textContent = "~ 안녕하세요 ~";
-    loadingScreen.style.background = "#ead7ef";
+    loadingScreen.style.background = "#1a1a1a";
     isDisabled = true;
 
     toggleFavicons();

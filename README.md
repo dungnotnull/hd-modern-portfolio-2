@@ -1,4 +1,4 @@
-# Hoang Dung — Room Folio
+# Hoang Dung — RoomFolio
 
 > An interactive 3D room portfolio built with Three.js, GSAP, and Vite. Orbit a stylized room, toggle weather and time of day, and open in-scene modal panels showcasing selected work, opensource contributions, and an about-me page.
 
@@ -399,4 +399,4 @@ The 3D model (`Room_Portfolio.glb`), project screenshots, and the likeness / per
 ---
 
 > Built and customized by **Hoang Dung** (`dungnotnull`) — M.Sc. IDT, AI Agent Engineer, Full-stack Developer.
-> Live site: <https://dungnotnull.dev/>
+> Live site: <https://hoangdung.dev/>

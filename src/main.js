@@ -345,14 +345,9 @@ manager.onLoad = function () {
     loadingScreen.style.background = "#1a1a1a";
     isDisabled = true;
 
-    toggleFavicons();
-
     if (!withSound) {
       isMuted = true;
       updateMuteState(true);
-
-      soundOnSvg.style.display = "none";
-      soundOffSvg.style.display = "block";
     } else {
       backgroundMusic.play();
     }
@@ -1689,12 +1684,11 @@ window.addEventListener("click", handleRaycasterInteraction);
 const themeToggleButton = document.querySelector(".theme-toggle-button");
 const weatherToggleButton = document.querySelector(".weather-toggle-button");
 const muteToggleButton = document.querySelector(".mute-toggle-button");
-const sunSvg = document.querySelector(".sun-svg");
-const moonSvg = document.querySelector(".moon-svg");
-const soundOffSvg = document.querySelector(".sound-off-svg");
-const soundOnSvg = document.querySelector(".sound-on-svg");
 
 const updateMuteState = (muted) => {
+  muteToggleButton.classList.toggle("is-muted", muted);
+  muteToggleButton.setAttribute("aria-pressed", String(muted));
+
   if (muted) {
     backgroundMusic.volume(0);
   } else {
@@ -1720,29 +1714,11 @@ const handleMuteToggle = (e) => {
 
   gsap.to(muteToggleButton, {
     rotate: -45,
-    scale: 5,
+    scale: 1.5,
     duration: 0.5,
     ease: "back.out(2)",
-    onStart: () => {
-      if (!isMuted) {
-        soundOffSvg.style.display = "none";
-        soundOnSvg.style.display = "block";
-      } else {
-        soundOnSvg.style.display = "none";
-        soundOffSvg.style.display = "block";
-      }
-
-      gsap.to(muteToggleButton, {
-        rotate: 0,
-        scale: 1,
-        duration: 0.5,
-        ease: "back.out(2)",
-        onComplete: () => {
-          gsap.set(muteToggleButton, {
-            clearProps: "all",
-          });
-        },
-      });
+    onComplete: () => {
+      gsap.set(muteToggleButton, { clearProps: "all" });
     },
   });
 };
@@ -1767,67 +1743,19 @@ muteToggleButton.addEventListener(
 );
 
 // Themeing stuff
-const toggleFavicons = () => {
-  const isDark = document.body.classList.contains("dark-theme");
-  const theme = isDark ? "light" : "dark";
-
-  document.querySelector(
-    'link[sizes="96x96"]'
-  ).href = `media/${theme}-favicon/favicon-96x96.png`;
-  document.querySelector(
-    'link[type="image/svg+xml"]'
-  ).href = `/media/${theme}-favicon/favicon.svg`;
-  document.querySelector(
-    'link[rel="shortcut icon"]'
-  ).href = `media/${theme}-favicon/favicon.ico`;
-  document.querySelector(
-    'link[rel="apple-touch-icon"]'
-  ).href = `media/${theme}-favicon/apple-touch-icon.png`;
-  document.querySelector(
-    'link[rel="manifest"]'
-  ).href = `media/${theme}-favicon/site.webmanifest`;
-};
-
 let isNightMode = false;
 
 const handleThemeToggle = (e) => {
   e.preventDefault();
-  toggleFavicons();
 
   const isDark = document.body.classList.contains("dark-theme");
   document.body.classList.remove(isDark ? "dark-theme" : "light-theme");
   document.body.classList.add(isDark ? "light-theme" : "dark-theme");
 
   isNightMode = !isNightMode;
+  themeToggleButton.classList.toggle("is-night", isNightMode);
+  themeToggleButton.setAttribute("aria-pressed", String(isNightMode));
   buttonSounds.click.play();
-
-  gsap.to(themeToggleButton, {
-    rotate: 45,
-    scale: 5,
-    duration: 0.5,
-    ease: "back.out(2)",
-    onStart: () => {
-      if (isNightMode) {
-        sunSvg.style.display = "none";
-        moonSvg.style.display = "block";
-      } else {
-        moonSvg.style.display = "none";
-        sunSvg.style.display = "block";
-      }
-
-      gsap.to(themeToggleButton, {
-        rotate: 0,
-        scale: 1,
-        duration: 0.5,
-        ease: "back.out(2)",
-        onComplete: () => {
-          gsap.set(themeToggleButton, {
-            clearProps: "all",
-          });
-        },
-      });
-    },
-  });
 
   Object.values(roomMaterials).forEach((material) => {
     gsap.to(material.uniforms.uMixRatio, {
@@ -1835,6 +1763,16 @@ const handleThemeToggle = (e) => {
       duration: 1.5,
       ease: "power2.inOut",
     });
+  });
+
+  gsap.to(themeToggleButton, {
+    rotate: 45,
+    scale: 1.5,
+    duration: 0.5,
+    ease: "back.out(2)",
+    onComplete: () => {
+      gsap.set(themeToggleButton, { clearProps: "all" });
+    },
   });
 };
 
@@ -1863,12 +1801,10 @@ const weatherTypes = ['snow', 'rain', 'sun', 'leaves'];
 const handleWeatherToggle = (e) => {
   e.preventDefault();
 
-  // Cycle through weather types
   const currentIndex = weatherTypes.indexOf(currentWeather);
   const nextIndex = (currentIndex + 1) % weatherTypes.length;
   currentWeather = weatherTypes[nextIndex];
 
-  // Play button sound
   buttonSounds.click.play();
 
   // Hide all weather systems first
@@ -1876,48 +1812,27 @@ const handleWeatherToggle = (e) => {
   rainSystem.visible = false;
   leavesSystem.visible = false;
 
-  // Show selected weather system
-  switch(currentWeather) {
-    case 'snow':
-      snowSystem.visible = true;
-      document.querySelector('.weather-sun').style.display = 'none';
-      document.querySelector('.weather-snow').style.display = 'block';
-      document.querySelector('.weather-rain').style.display = 'none';
-      document.querySelector('.weather-leaf').style.display = 'none';
-      break;
-    case 'rain':
-      rainSystem.visible = true;
-      document.querySelector('.weather-sun').style.display = 'none';
-      document.querySelector('.weather-snow').style.display = 'none';
-      document.querySelector('.weather-rain').style.display = 'block';
-      document.querySelector('.weather-leaf').style.display = 'none';
-      break;
-    case 'sun':
-      // No particle system for sun, just clear weather
-      document.querySelector('.weather-sun').style.display = 'block';
-      document.querySelector('.weather-snow').style.display = 'none';
-      document.querySelector('.weather-rain').style.display = 'none';
-      document.querySelector('.weather-leaf').style.display = 'none';
-      break;
-    case 'leaves':
-      leavesSystem.visible = true;
-      document.querySelector('.weather-sun').style.display = 'none';
-      document.querySelector('.weather-snow').style.display = 'none';
-      document.querySelector('.weather-rain').style.display = 'none';
-      document.querySelector('.weather-leaf').style.display = 'block';
-      break;
-  }
+  // Show selected system
+  if (currentWeather === "snow") snowSystem.visible = true;
+  else if (currentWeather === "rain") rainSystem.visible = true;
+  else if (currentWeather === "leaves") leavesSystem.visible = true;
 
-  // Add button animation
+  // Update button state class — single source of truth for SVG visibility
+  weatherToggleButton.classList.remove(
+    "weather-snow",
+    "weather-rain",
+    "weather-sun",
+    "weather-leaf"
+  );
+  weatherToggleButton.classList.add(`weather-${currentWeather}`);
+
   gsap.to(weatherToggleButton, {
     rotate: 360,
-    scale: 1.5,
-    duration: 0.3,
+    scale: 1.3,
+    duration: 0.4,
     ease: "back.out(2)",
     onComplete: () => {
-      gsap.set(weatherToggleButton, {
-        clearProps: "all",
-      });
+      gsap.set(weatherToggleButton, { clearProps: "all" });
     },
   });
 };

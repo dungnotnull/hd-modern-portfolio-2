@@ -19,6 +19,9 @@ import themeVertexShader from "./shaders/theme/vertex.glsl";
 import themeFragmentShader from "./shaders/theme/fragment.glsl";
 
 import { createCreatures } from "./scripts/creatures.js";
+import { applyBrandIcons } from "./scripts/brand-icons.js";
+
+applyBrandIcons();
 
 /**  -------------------------- Audio setup -------------------------- */
 
@@ -264,6 +267,10 @@ const showModal = (modal) => {
   isModalOpen = true;
   controls.enabled = false;
 
+  if (videoElement && !videoElement.paused) {
+    videoElement.pause();
+  }
+
   if (currentHoveredObject) {
     playHoverAnimation(currentHoveredObject, false);
     currentHoveredObject = null;
@@ -295,6 +302,10 @@ const showModal = (modal) => {
 const hideModal = (modal) => {
   isModalOpen = false;
   controls.enabled = true;
+
+  if (videoElement && videoElement.paused) {
+    videoElement.play().catch(() => {});
+  }
 
   gsap.to(overlay, {
     opacity: 0,
@@ -332,7 +343,7 @@ manager.onLoad = function () {
     "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
   let isDisabled = false;
 
-  noSoundButton.textContent = "Enter without Sound :(";
+  noSoundButton.textContent = "Hi Buddy,";
 
   function handleEnter(withSound = true) {
     if (isDisabled) return;
@@ -1376,6 +1387,7 @@ loader.load("/models/Room_Portfolio.glb", (glb) => {
   }
 
   scene.add(glb.scene);
+
 });
 
 /**  -------------------------- Raycaster setup -------------------------- */
@@ -1887,7 +1899,7 @@ const render = (timestamp) => {
   smokeMaterial.uniforms.uTime.value = elapsedTime;
 
   // Update snow animation
-  if (snowSystem) {
+  if (snowSystem && snowSystem.visible) {
     snowMaterial.uniforms.uTime.value = elapsedTime;
   }
 

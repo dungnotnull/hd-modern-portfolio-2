@@ -217,6 +217,19 @@ ul {
   border-radius: 25px;
   display: none;
   border: 8px solid vars.$base-purple;
+
+  @include media.media("<=tablet") {
+    padding: 20px;
+    border-radius: 20px;
+    border-width: 6px;
+  }
+
+  @include media.media("<=480px") {
+    padding: 14px;
+    width: 94%;
+    border-width: 5px;
+    border-radius: 16px;
+  }
 }
 
 .about {
@@ -346,6 +359,7 @@ ul {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   touch-action: pan-y;
+  scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -449,6 +463,11 @@ a.work-project {
     color: t("section-title");
     border-color: t("base-purple");
   }
+
+  @include media.media("<=480px") {
+    font-size: 1.4rem;
+    border-bottom-width: 4px;
+  }
 }
 
 .linkedin-cta-wrapper {
@@ -476,6 +495,8 @@ a.work-project {
   font-size: 1.2rem;
   font-family: "Motley Forces";
   transition: all 0.3s ease;
+  white-space: nowrap;
+  max-width: 100%;
 
   &:hover {
     background-color: vars.$base-dark-purple;
@@ -486,6 +507,13 @@ a.work-project {
   @include media.media("<=tablet") {
     font-size: 1rem;
     padding: 0.8rem 1.5rem;
+  }
+
+  // Narrow phones (most modern phones in portrait: iPhone SE/Plus/Pro)
+  // <=phone (320px) misses the bulk of phones; use explicit pixel breakpoint
+  @include media.media("<=480px") {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
   }
 }
 
@@ -774,11 +802,16 @@ ul {
 
 .list-text,
 .list-text-2,
-.modal-paragraph-header,
-.modal-paragraph-header-2,
 .modal-paragraph-text {
   @include themed() {
     color: t("text");
+  }
+}
+
+.modal-paragraph-header,
+.modal-paragraph-header-2 {
+  @include themed() {
+    color: t("base-dark-purple");
   }
 }
 
@@ -1046,18 +1079,21 @@ ul {
 
 .tech-item span {
   font-family: "Shifty Notes";
+  @include themed() {
+    color: t("text");
+  }
 }
 
 // AI Grid Styles
 .ai-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   width: 100%;
   margin: 1.5rem 0;
 
   @include media.media("<=tablet") {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 18px;
   }
 }

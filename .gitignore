@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Blender source files (kept local, not pushed — 149M+ of .blend + textures)
+blender files/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

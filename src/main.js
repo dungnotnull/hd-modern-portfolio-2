@@ -18,6 +18,8 @@ import leavesFragmentShader from "./shaders/leaves/fragment.glsl";
 import themeVertexShader from "./shaders/theme/vertex.glsl";
 import themeFragmentShader from "./shaders/theme/fragment.glsl";
 
+import { createCreatures } from "./scripts/creatures.js";
+
 /**  -------------------------- Audio setup -------------------------- */
 
 // Background Music
@@ -883,6 +885,9 @@ const smokeMaterial = new THREE.ShaderMaterial({
 const smoke = new THREE.Mesh(smokeGeometry, smokeMaterial);
 smoke.position.y = 1.83;
 scene.add(smoke);
+
+/** -------------------------- Cute Creatures -------------------------- */
+const creatures = createCreatures(scene);
 
 /**  -------------------------- Snow Particle System -------------------------- */
 
@@ -1894,6 +1899,11 @@ const render = (timestamp) => {
   // Update leaves animation
   if (leavesSystem && leavesSystem.visible) {
     leavesMaterial.uniforms.uTime.value = elapsedTime;
+  }
+
+  // Update cute creatures
+  if (creatures) {
+    creatures.update(elapsedTime, isNightMode);
   }
 
   //Update Orbit Controls

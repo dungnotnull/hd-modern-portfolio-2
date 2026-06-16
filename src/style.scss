@@ -410,6 +410,12 @@ ul {
   }
 }
 
+// Clickable opensource cards: preserve card visual when wrapped in <a>
+a.work-project {
+  text-decoration: none;
+  color: inherit;
+}
+
 // Projects grid for work modal
 .projects-grid {
   display: grid;

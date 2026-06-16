@@ -9,6 +9,12 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 import smokeVertexShader from "./shaders/smoke/vertex.glsl";
 import smokeFragmentShader from "./shaders/smoke/fragment.glsl";
+import snowVertexShader from "./shaders/snow/vertex.glsl";
+import snowFragmentShader from "./shaders/snow/fragment.glsl";
+import rainVertexShader from "./shaders/rain/vertex.glsl";
+import rainFragmentShader from "./shaders/rain/fragment.glsl";
+import leavesVertexShader from "./shaders/leaves/vertex.glsl";
+import leavesFragmentShader from "./shaders/leaves/fragment.glsl";
 import themeVertexShader from "./shaders/theme/vertex.glsl";
 import themeFragmentShader from "./shaders/theme/fragment.glsl";
 
@@ -105,7 +111,7 @@ const sizes = {
 };
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color("#0a0a0a");
+scene.background = new THREE.Color("#2a2a2a");
 
 const camera = new THREE.PerspectiveCamera(
   35,
@@ -318,7 +324,7 @@ manager.onLoad = function () {
   loadingScreenButton.style.background = "#1a1a1a";
   loadingScreenButton.style.color = "#ffffff";
   loadingScreenButton.style.boxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
-  loadingScreenButton.textContent = "Enter!";
+  loadingScreenButton.textContent = "Check on me!";
   loadingScreenButton.style.cursor = "pointer";
   loadingScreenButton.style.transition =
     "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
@@ -335,7 +341,7 @@ manager.onLoad = function () {
     loadingScreenButton.style.background = "#2a2a2a";
     loadingScreenButton.style.color = "#a78bfa";
     loadingScreenButton.style.boxShadow = "none";
-    loadingScreenButton.textContent = "~ 안녕하세요 ~";
+    loadingScreenButton.textContent = "Hello world!";
     loadingScreen.style.background = "#1a1a1a";
     isDisabled = true;
 
@@ -500,34 +506,7 @@ function playIntroAnimation() {
     y: 1,
     x: 1,
     delay: 0.4,
-  })
-    .to(
-      github.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-      },
-      "-=0.5"
-    )
-    .to(
-      youtube.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-      },
-      "-=0.6"
-    )
-    .to(
-      twitter.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-      },
-      "-=0.6"
-    );
+  });
 
   const tFlowers = gsap.timeline({
     defaults: {
@@ -700,252 +679,6 @@ function playIntroAnimation() {
     y: 1,
     z: 1,
   });
-
-  const lettersTl = gsap.timeline({
-    defaults: {
-      duration: 0.8,
-      ease: "back.out(1.7)",
-    },
-  });
-  lettersTl.timeScale(0.8);
-
-  lettersTl
-    .to(letter1.position, {
-      y: letter1.userData.initialPosition.y + 0.3,
-      duration: 0.4,
-      ease: "back.out(1.8)",
-      delay: 0.25,
-    })
-    .to(
-      letter1.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "<"
-    )
-    .to(
-      letter1.position,
-      {
-        y: letter1.userData.initialPosition.y,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      ">-0.2"
-    )
-
-    .to(
-      letter2.position,
-      {
-        y: letter2.userData.initialPosition.y + 0.3,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "-=0.5"
-    )
-    .to(
-      letter2.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "<"
-    )
-    .to(
-      letter2.position,
-      {
-        y: letter2.userData.initialPosition.y,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      ">-0.2"
-    )
-
-    .to(
-      letter3.position,
-      {
-        y: letter3.userData.initialPosition.y + 0.3,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "-=0.5"
-    )
-    .to(
-      letter3.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "<"
-    )
-    .to(
-      letter3.position,
-      {
-        y: letter3.userData.initialPosition.y,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      ">-0.2"
-    )
-
-    .to(
-      letter4.position,
-      {
-        y: letter4.userData.initialPosition.y + 0.3,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "-=0.5"
-    )
-    .to(
-      letter4.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "<"
-    )
-    .to(
-      letter4.position,
-      {
-        y: letter4.userData.initialPosition.y,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      ">-0.2"
-    )
-
-    .to(
-      letter5.position,
-      {
-        y: letter5.userData.initialPosition.y + 0.3,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "-=0.5"
-    )
-    .to(
-      letter5.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "<"
-    )
-    .to(
-      letter5.position,
-      {
-        y: letter5.userData.initialPosition.y,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      ">-0.2"
-    )
-
-    .to(
-      letter6.position,
-      {
-        y: letter6.userData.initialPosition.y + 0.3,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "-=0.5"
-    )
-    .to(
-      letter6.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "<"
-    )
-    .to(
-      letter6.position,
-      {
-        y: letter6.userData.initialPosition.y,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      ">-0.2"
-    )
-
-    .to(
-      letter7.position,
-      {
-        y: letter7.userData.initialPosition.y + 0.3,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "-=0.5"
-    )
-    .to(
-      letter7.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "<"
-    )
-    .to(
-      letter7.position,
-      {
-        y: letter7.userData.initialPosition.y,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      ">-0.2"
-    )
-
-    .to(
-      letter8.position,
-      {
-        y: letter8.userData.initialPosition.y + 0.3,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "-=0.5"
-    )
-    .to(
-      letter8.scale,
-      {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      "<"
-    )
-    .to(
-      letter8.position,
-      {
-        y: letter8.userData.initialPosition.y,
-        duration: 0.4,
-        ease: "back.out(1.8)",
-      },
-      ">-0.2"
-    );
 
   const pianoKeysTl = gsap.timeline({
     defaults: {
@@ -1156,8 +889,165 @@ const smoke = new THREE.Mesh(smokeGeometry, smokeMaterial);
 smoke.position.y = 1.83;
 scene.add(smoke);
 
+/**  -------------------------- Snow Particle System -------------------------- */
+
+const snowParticleCount = 2500;
+const snowGeometry = new THREE.BufferGeometry();
+const snowPositions = new Float32Array(snowParticleCount * 3);
+const snowSizes = new Float32Array(snowParticleCount);
+const snowSpeeds = new Float32Array(snowParticleCount);
+const snowRandomness = new Float32Array(snowParticleCount * 3);
+
+for (let i = 0; i < snowParticleCount; i++) {
+  const i3 = i * 3;
+
+  // Position snowflakes for better coverage - wider area and higher
+  snowPositions[i3] = (Math.random() - 0.5) * 50;     // Wider X coverage
+  snowPositions[i3 + 1] = Math.random() * 25 + 2;      // Higher Y range
+  snowPositions[i3 + 2] = (Math.random() - 0.5) * 50 - 15;  // Extended Z coverage
+
+  // Bigger snowflakes for better visibility
+  snowSizes[i] = Math.random() * 0.5 + 0.4;
+  snowSpeeds[i] = Math.random() * 0.6 + 0.4;
+  snowRandomness[i3] = Math.random();
+  snowRandomness[i3 + 1] = Math.random();
+  snowRandomness[i3 + 2] = Math.random();
+}
+
+snowGeometry.setAttribute('position', new THREE.BufferAttribute(snowPositions, 3));
+snowGeometry.setAttribute('aSize', new THREE.BufferAttribute(snowSizes, 1));
+snowGeometry.setAttribute('aSpeed', new THREE.BufferAttribute(snowSpeeds, 1));
+snowGeometry.setAttribute('aRandomness', new THREE.BufferAttribute(snowRandomness, 3));
+
+const snowMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: { value: 0 },
+    uSnowDensity: { value: 1.0 },
+    uWindDirection: { value: new THREE.Vector3(0.5, 0, 0.2) },
+    uColor: { value: new THREE.Color(0xffffff) }
+  },
+  vertexShader: snowVertexShader,
+  fragmentShader: snowFragmentShader,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending
+});
+
+const snowSystem = new THREE.Points(snowGeometry, snowMaterial);
+scene.add(snowSystem);
+
+/**  -------------------------- Weather Systems -------------------------- */
+
+let currentWeather = 'snow'; // 'snow', 'rain', 'sun', 'leaves'
+
+// Rain particle system
+const rainParticleCount = 3000;
+const rainGeometry = new THREE.BufferGeometry();
+const rainPositions = new Float32Array(rainParticleCount * 3);
+const rainSpeeds = new Float32Array(rainParticleCount);
+const rainRandomness = new Float32Array(rainParticleCount * 3);
+
+for (let i = 0; i < rainParticleCount; i++) {
+  const i3 = i * 3;
+  rainPositions[i3] = (Math.random() - 0.5) * 50;
+  rainPositions[i3 + 1] = Math.random() * 25 + 2;
+  rainPositions[i3 + 2] = (Math.random() - 0.5) * 50 - 15;
+  rainSpeeds[i] = Math.random() * 0.8 + 0.6;
+  rainRandomness[i3] = Math.random();
+  rainRandomness[i3 + 1] = Math.random();
+  rainRandomness[i3 + 2] = Math.random();
+}
+
+rainGeometry.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
+rainGeometry.setAttribute('aSpeed', new THREE.BufferAttribute(rainSpeeds, 1));
+rainGeometry.setAttribute('aRandomness', new THREE.BufferAttribute(rainRandomness, 3));
+
+const rainMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: { value: 0 },
+    uRainDensity: { value: 1.0 },
+    uWindDirection: { value: new THREE.Vector3(0.3, 0, 0.1) },
+    uColor: { value: new THREE.Color(0x6aa3e6) }
+  },
+  vertexShader: rainVertexShader,
+  fragmentShader: rainFragmentShader,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending
+});
+
+const rainSystem = new THREE.Points(rainGeometry, rainMaterial);
+rainSystem.visible = false; // Hidden by default
+scene.add(rainSystem);
+
+// Falling leaves particle system
+const leavesParticleCount = 1500;
+const leavesGeometry = new THREE.BufferGeometry();
+const leavesPositions = new Float32Array(leavesParticleCount * 3);
+const leavesSizes = new Float32Array(leavesParticleCount);
+const leavesSpeeds = new Float32Array(leavesParticleCount);
+const leavesRotationSpeeds = new Float32Array(leavesParticleCount);
+const leavesRandomness = new Float32Array(leavesParticleCount * 3);
+const leavesColors = new Float32Array(leavesParticleCount * 3);
+
+// Autumn leaf colors
+const autumnColors = [
+  new THREE.Color(0xd45400), // Orange-brown
+  new THREE.Color(0xff6600), // Red-orange
+  new THREE.Color(0xcc3300), // Dark orange
+  new THREE.Color(0x993300), // Golden brown
+  new THREE.Color(0x8b4513), // Saddle brown
+];
+
+for (let i = 0; i < leavesParticleCount; i++) {
+  const i3 = i * 3;
+  leavesPositions[i3] = (Math.random() - 0.5) * 50;
+  leavesPositions[i3 + 1] = Math.random() * 25 + 5;
+  leavesPositions[i3 + 2] = (Math.random() - 0.5) * 50 - 15;
+  leavesSizes[i] = Math.random() * 0.8 + 0.6;
+  leavesSpeeds[i] = Math.random() * 0.6 + 0.3;
+  leavesRotationSpeeds[i] = Math.random() * 0.5 + 0.3;
+
+  const colorIndex = Math.floor(Math.random() * autumnColors.length);
+  const color = autumnColors[colorIndex];
+  leavesColors[i3] = color.r;
+  leavesColors[i3 + 1] = color.g;
+  leavesColors[i3 + 2] = color.b;
+
+  leavesRandomness[i3] = Math.random();
+  leavesRandomness[i3 + 1] = Math.random();
+  leavesRandomness[i3 + 2] = Math.random();
+}
+
+leavesGeometry.setAttribute('position', new THREE.BufferAttribute(leavesPositions, 3));
+leavesGeometry.setAttribute('aSize', new THREE.BufferAttribute(leavesSizes, 1));
+leavesGeometry.setAttribute('aSpeed', new THREE.BufferAttribute(leavesSpeeds, 1));
+leavesGeometry.setAttribute('aRotationSpeed', new THREE.BufferAttribute(leavesRotationSpeeds, 1));
+leavesGeometry.setAttribute('aRandomness', new THREE.BufferAttribute(leavesRandomness, 3));
+leavesGeometry.setAttribute('aColor', new THREE.BufferAttribute(leavesColors, 3));
+
+const leavesMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: { value: 0 },
+    uLeafDensity: { value: 1.0 },
+    uWindDirection: { value: new THREE.Vector3(1.0, 0, 0.3) },
+    uColor: { value: new THREE.Color(0xd45400) }
+  },
+  vertexShader: leavesVertexShader,
+  fragmentShader: leavesFragmentShader,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending
+});
+
+const leavesSystem = new THREE.Points(leavesGeometry, leavesMaterial);
+leavesSystem.visible = false; // Hidden by default
+scene.add(leavesSystem);
+
+/**  -------------------------- Video Setup -------------------------- */
+
 const videoElement = document.createElement("video");
-videoElement.src = "/textures/video/Screen.mp4";
+videoElement.src = "/media/vid1.mp4";
 videoElement.loop = true;
 videoElement.muted = true;
 videoElement.playsInline = true;
@@ -1183,12 +1073,8 @@ let plank1,
   workBtn,
   aboutBtn,
   contactBtn,
-  boba,
-  github,
-  youtube,
-  twitter;
+  boba;
 
-let letter1, letter2, letter3, letter4, letter5, letter6, letter7, letter8;
 
 let C1_Key,
   Cs1_Key,
@@ -1239,16 +1125,6 @@ const objectsWithIntroAnimations = [
   "Contact_Button",
   "Boba",
   "GitHub",
-  "YouTube",
-  "Twitter",
-  "Name_Letter_1",
-  "Name_Letter_2",
-  "Name_Letter_3",
-  "Name_Letter_4",
-  "Name_Letter_5",
-  "Name_Letter_6",
-  "Name_Letter_7",
-  "Name_Letter_8",
   "Flower_1",
   "Flower_2",
   "Flower_3",
@@ -1357,37 +1233,13 @@ loader.load("/models/Room_Portfolio.glb", (glb) => {
         boba = child;
         child.scale.set(0, 0, 0);
       } else if (child.name.includes("GitHub")) {
-        github = child;
-        child.scale.set(0, 0, 0);
+        // Don't capture in single variable - let them show naturally
+        // GitHub boards will remain visible in the scene
       } else if (child.name.includes("YouTube")) {
-        youtube = child;
+        // Hide YouTube board completely
         child.scale.set(0, 0, 0);
       } else if (child.name.includes("Twitter")) {
-        twitter = child;
-        child.scale.set(0, 0, 0);
-      } else if (child.name.includes("Name_Letter_1")) {
-        letter1 = child;
-        child.scale.set(0, 0, 0);
-      } else if (child.name.includes("Name_Letter_2")) {
-        letter2 = child;
-        child.scale.set(0, 0, 0);
-      } else if (child.name.includes("Name_Letter_3")) {
-        letter3 = child;
-        child.scale.set(0, 0, 0);
-      } else if (child.name.includes("Name_Letter_4")) {
-        letter4 = child;
-        child.scale.set(0, 0, 0);
-      } else if (child.name.includes("Name_Letter_5")) {
-        letter5 = child;
-        child.scale.set(0, 0, 0);
-      } else if (child.name.includes("Name_Letter_6")) {
-        letter6 = child;
-        child.scale.set(0, 0, 0);
-      } else if (child.name.includes("Name_Letter_7")) {
-        letter7 = child;
-        child.scale.set(0, 0, 0);
-      } else if (child.name.includes("Name_Letter_8")) {
-        letter8 = child;
+        // Hide X (Twitter) board completely
         child.scale.set(0, 0, 0);
       } else if (child.name.includes("Flower_1")) {
         flower1 = child;
@@ -1441,6 +1293,9 @@ loader.load("/models/Room_Portfolio.glb", (glb) => {
         child.scale.set(0, 0, 0);
       } else if (child.name.includes("Frame_3")) {
         frame3 = child;
+        child.scale.set(0, 0, 0);
+      } else if (child.name.includes("Name_Letter")) {
+        // Hide all wood letters completely
         child.scale.set(0, 0, 0);
       }
       Object.keys(pianoKeyMap).forEach((keyName) => {
@@ -1530,9 +1385,7 @@ let currentIntersects = [];
 let currentHoveredObject = null;
 
 const socialLinks = {
-  GitHub: "https://github.com/andrewwoan/sooahkimsfolio",
-  YouTube: "https://youtu.be/AB6sulUMRGE",
-  Twitter: "https://www.twitter.com/",
+  GitHub: "https://github.com/dungnotnull",
 };
 
 const raycaster = new THREE.Raycaster();
@@ -1754,9 +1607,7 @@ function playHoverAnimation(objectHitbox, isHovering) {
     } else if (
       object.name.includes("Contact_Button") ||
       object.name.includes("My_Work_Button") ||
-      object.name.includes("GitHub") ||
-      object.name.includes("YouTube") ||
-      object.name.includes("Twitter")
+      object.name.includes("GitHub")
     ) {
       gsap.to(object.rotation, {
         x: object.userData.initialRotation.x + Math.PI / 10,
@@ -1765,7 +1616,7 @@ function playHoverAnimation(objectHitbox, isHovering) {
       });
     }
 
-    if (object.name.includes("Boba") || object.name.includes("Name_Letter")) {
+    if (object.name.includes("Boba")) {
       gsap.to(object.position, {
         y: object.userData.initialPosition.y + 0.2,
         duration: 0.5,
@@ -1786,9 +1637,7 @@ function playHoverAnimation(objectHitbox, isHovering) {
       object.name.includes("About_Button") ||
       object.name.includes("Contact_Button") ||
       object.name.includes("My_Work_Button") ||
-      object.name.includes("GitHub") ||
-      object.name.includes("YouTube") ||
-      object.name.includes("Twitter")
+      object.name.includes("GitHub")
     ) {
       gsap.to(object.rotation, {
         x: object.userData.initialRotation.x,
@@ -1797,7 +1646,7 @@ function playHoverAnimation(objectHitbox, isHovering) {
       });
     }
 
-    if (object.name.includes("Boba") || object.name.includes("Name_Letter")) {
+    if (object.name.includes("Boba")) {
       gsap.to(object.position, {
         y: object.userData.initialPosition.y,
         duration: 0.3,
@@ -1838,6 +1687,7 @@ window.addEventListener("click", handleRaycasterInteraction);
 
 // Other Event Listeners
 const themeToggleButton = document.querySelector(".theme-toggle-button");
+const weatherToggleButton = document.querySelector(".weather-toggle-button");
 const muteToggleButton = document.querySelector(".mute-toggle-button");
 const sunSvg = document.querySelector(".sun-svg");
 const moonSvg = document.querySelector(".moon-svg");
@@ -2007,6 +1857,90 @@ themeToggleButton.addEventListener(
   { passive: false }
 );
 
+/**  -------------------------- Weather Toggle -------------------------- */
+
+const weatherTypes = ['snow', 'rain', 'sun', 'leaves'];
+const handleWeatherToggle = (e) => {
+  e.preventDefault();
+
+  // Cycle through weather types
+  const currentIndex = weatherTypes.indexOf(currentWeather);
+  const nextIndex = (currentIndex + 1) % weatherTypes.length;
+  currentWeather = weatherTypes[nextIndex];
+
+  // Play button sound
+  buttonSounds.click.play();
+
+  // Hide all weather systems first
+  snowSystem.visible = false;
+  rainSystem.visible = false;
+  leavesSystem.visible = false;
+
+  // Show selected weather system
+  switch(currentWeather) {
+    case 'snow':
+      snowSystem.visible = true;
+      document.querySelector('.weather-sun').style.display = 'none';
+      document.querySelector('.weather-snow').style.display = 'block';
+      document.querySelector('.weather-rain').style.display = 'none';
+      document.querySelector('.weather-leaf').style.display = 'none';
+      break;
+    case 'rain':
+      rainSystem.visible = true;
+      document.querySelector('.weather-sun').style.display = 'none';
+      document.querySelector('.weather-snow').style.display = 'none';
+      document.querySelector('.weather-rain').style.display = 'block';
+      document.querySelector('.weather-leaf').style.display = 'none';
+      break;
+    case 'sun':
+      // No particle system for sun, just clear weather
+      document.querySelector('.weather-sun').style.display = 'block';
+      document.querySelector('.weather-snow').style.display = 'none';
+      document.querySelector('.weather-rain').style.display = 'none';
+      document.querySelector('.weather-leaf').style.display = 'none';
+      break;
+    case 'leaves':
+      leavesSystem.visible = true;
+      document.querySelector('.weather-sun').style.display = 'none';
+      document.querySelector('.weather-snow').style.display = 'none';
+      document.querySelector('.weather-rain').style.display = 'none';
+      document.querySelector('.weather-leaf').style.display = 'block';
+      break;
+  }
+
+  // Add button animation
+  gsap.to(weatherToggleButton, {
+    rotate: 360,
+    scale: 1.5,
+    duration: 0.3,
+    ease: "back.out(2)",
+    onComplete: () => {
+      gsap.set(weatherToggleButton, {
+        clearProps: "all",
+      });
+    },
+  });
+};
+
+// Weather toggle button event listeners
+weatherToggleButton.addEventListener(
+  "click",
+  (e) => {
+    if (touchHappened) return;
+    handleWeatherToggle(e);
+  },
+  { passive: false }
+);
+
+weatherToggleButton.addEventListener(
+  "touchend",
+  (e) => {
+    touchHappened = true;
+    handleWeatherToggle(e);
+  },
+  { passive: false }
+);
+
 /**  -------------------------- Render and Animations Stuff -------------------------- */
 const clock = new THREE.Clock();
 
@@ -2031,6 +1965,21 @@ const render = (timestamp) => {
 
   // Update Shader Univform
   smokeMaterial.uniforms.uTime.value = elapsedTime;
+
+  // Update snow animation
+  if (snowSystem) {
+    snowMaterial.uniforms.uTime.value = elapsedTime;
+  }
+
+  // Update rain animation
+  if (rainSystem && rainSystem.visible) {
+    rainMaterial.uniforms.uTime.value = elapsedTime;
+  }
+
+  // Update leaves animation
+  if (leavesSystem && leavesSystem.visible) {
+    leavesMaterial.uniforms.uTime.value = elapsedTime;
+  }
 
   //Update Orbit Controls
   controls.update();

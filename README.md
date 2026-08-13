@@ -9,7 +9,7 @@
 [![simple-icons](https://img.shields.io/badge/simple--icons-16.23-444444)](https://simpleicons.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 
-**Live site:** <https://dungnotnull.dev/>
+**Live site:** <[https://dungnotnull.dev/](https://www.hoangdung.dev/)>
 
 ![Page screenshot](public/media/og-image.webp?raw=true "Page screenshot")
 
